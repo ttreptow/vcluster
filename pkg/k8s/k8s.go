@@ -33,6 +33,7 @@ func StartK8S(ctx context.Context, serviceCIDR string) error {
 	// start api server first
 	apiEnv, ok := os.LookupEnv(apiServerCmd)
 	if ok {
+		apiEnv = os.ExpandEnv(apiEnv)
 		apiCommand := &command{}
 		err := yaml.Unmarshal([]byte(apiEnv), apiCommand)
 		if err != nil {
@@ -67,6 +68,7 @@ func StartK8S(ctx context.Context, serviceCIDR string) error {
 	// start controller command
 	controllerEnv, ok := os.LookupEnv(controllerCmd)
 	if ok {
+		controllerEnv = os.ExpandEnv(controllerEnv)
 		controllerCommand := &command{}
 		err := yaml.Unmarshal([]byte(controllerEnv), controllerCommand)
 		if err != nil {
@@ -82,6 +84,7 @@ func StartK8S(ctx context.Context, serviceCIDR string) error {
 	// start scheduler command
 	schedulerEnv, ok := os.LookupEnv(schedulerCmd)
 	if ok {
+		schedulerEnv = os.ExpandEnv(schedulerEnv)
 		schedulerCommand := &command{}
 		err := yaml.Unmarshal([]byte(schedulerEnv), schedulerCommand)
 		if err != nil {
